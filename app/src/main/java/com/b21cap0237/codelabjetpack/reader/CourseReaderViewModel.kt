@@ -1,5 +1,6 @@
 package com.b21cap0237.codelabjetpack.reader
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.b21cap0237.codelabjetpack.data.ContentEntity
 import com.b21cap0237.codelabjetpack.data.ModuleEntity
@@ -20,9 +21,9 @@ class CourseReaderViewModel (private val academyRepository: AcademyRepository): 
     fun setSelectedModule(moduleId: String) {
         this.moduleId = moduleId
     }
-    fun getModules(): ArrayList<ModuleEntity> = academyRepository.getAllModulesByCourse(courseId)
+    fun getModules(): LiveData<List<ModuleEntity>> = academyRepository.getAllModulesByCourse(courseId)
 
-    fun getSelectedModule(): ModuleEntity = academyRepository.getContent(courseId, moduleId)
+    fun getSelectedModule(): LiveData<ModuleEntity> = academyRepository.getContent(courseId, moduleId)
 //    fun getModules(): List<ModuleEntity> = DataDummy.generateDummyModules(courseId)
 //
 //    fun getSelectedModule(): ModuleEntity {

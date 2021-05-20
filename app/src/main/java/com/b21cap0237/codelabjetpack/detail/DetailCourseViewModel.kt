@@ -1,5 +1,6 @@
 package com.b21cap0237.codelabjetpack.detail
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.b21cap0237.codelabjetpack.data.CourseEntity
 import com.b21cap0237.codelabjetpack.data.ModuleEntity
@@ -26,7 +27,7 @@ class DetailCourseViewModel (private val academyRepository: AcademyRepository): 
 //
 //    fun getModules(): List<ModuleEntity> = DataDummy.generateDummyModules(courseId)
 
-    fun getCourse(): CourseEntity = academyRepository.getCourseWithModules(courseId)
+    fun getCourse(): LiveData<CourseEntity> = academyRepository.getCourseWithModules(courseId)
 
-    fun getModules(): List<ModuleEntity> = academyRepository.getAllModulesByCourse(courseId)
+    fun getModules(): LiveData<List<ModuleEntity>> = academyRepository.getAllModulesByCourse(courseId)
 }

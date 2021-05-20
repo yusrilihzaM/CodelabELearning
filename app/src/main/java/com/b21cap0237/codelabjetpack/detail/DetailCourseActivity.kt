@@ -2,6 +2,7 @@ package com.b21cap0237.codelabjetpack.detail
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -45,8 +46,16 @@ class DetailCourseActivity : AppCompatActivity() {
 //                val modules = DataDummy.generateDummyModules(courseId)
                 viewModel.setSelectedCourse(courseId)
                 val modules = viewModel.getModules()
-                adapter.setModules(modules)
-                populateCourse(viewModel.getCourse() as CourseEntity)
+                activityDetailCourseBinding.progressBar.visibility = View.VISIBLE
+                activityDetailCourseBinding.content.visibility = View.INVISIBLE
+                viewModel.getModules().observe(this, { modules ->
+                    activityDetailCourseBinding.progressBar.visibility = View.GONE
+                    activityDetailCourseBinding.content.visibility = View.VISIBLE
+                    adapter.setModules(modules)
+                    adapter.notifyDataSetChanged()
+                })
+                viewModel.getCourse().observe(this, { course -> populateCourse(course) })
+//                populateCourse(viewModel.getCourse() as CourseEntity)
 //                for (course in DataDummy.generateDummyCourses()) {
 //                    if (course.courseId == courseId) {
 //                        populateCourse(course)
