@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.b21cap0237.codelabjetpack.R
 import com.b21cap0237.codelabjetpack.databinding.FragmentAcademyBinding
 import com.b21cap0237.codelabjetpack.utils.DataDummy
+import com.b21cap0237.codelabjetpack.viewmodel.ViewModelFactory
 
 
 class AcademyFragment : Fragment() {
@@ -27,7 +28,9 @@ class AcademyFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         if (activity != null) {
 //            val courses = DataDummy.generateDummyCourses()
-            val viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[AcademyViewModel::class.java]
+            val factory = ViewModelFactory.getInstance(requireActivity())
+            val viewModel = ViewModelProvider(this, factory)[AcademyViewModel::class.java]
+//            val viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[AcademyViewModel::class.java]
             val courses = viewModel.getCourses()
             val academyAdapter = AcademyAdapter()
             academyAdapter.setCourses(courses)

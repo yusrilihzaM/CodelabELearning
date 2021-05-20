@@ -12,6 +12,7 @@ import com.b21cap0237.codelabjetpack.R
 import com.b21cap0237.codelabjetpack.data.CourseEntity
 import com.b21cap0237.codelabjetpack.databinding.FragmentBookmarkBinding
 import com.b21cap0237.codelabjetpack.utils.DataDummy
+import com.b21cap0237.codelabjetpack.viewmodel.ViewModelFactory
 
 
 class BookmarkFragment : Fragment(), BookmarkFragmentCallback {
@@ -30,7 +31,9 @@ class BookmarkFragment : Fragment(), BookmarkFragmentCallback {
         super.onViewCreated(view, savedInstanceState)
         if (activity != null) {
 //            val courses = DataDummy.generateDummyCourses()
-            val viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[BookmarkViewModel::class.java]
+//            val viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[BookmarkViewModel::class.java]
+            val factory = ViewModelFactory.getInstance(requireActivity())
+            val viewModel = ViewModelProvider(this, factory)[BookmarkViewModel::class.java]
             val courses = viewModel.getBookmarks()
             val adapter = BookmarkAdapter(this)
             adapter.setCourses(courses)

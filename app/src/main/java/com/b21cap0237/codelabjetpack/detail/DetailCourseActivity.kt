@@ -2,13 +2,8 @@ package com.b21cap0237.codelabjetpack.detail
 
 import android.content.Intent
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.b21cap0237.codelabjetpack.R
@@ -16,7 +11,7 @@ import com.b21cap0237.codelabjetpack.data.CourseEntity
 import com.b21cap0237.codelabjetpack.databinding.ActivityDetailCourseBinding
 import com.b21cap0237.codelabjetpack.databinding.ContentDetailCourseBinding
 import com.b21cap0237.codelabjetpack.reader.CourseReaderActivity
-import com.b21cap0237.codelabjetpack.utils.DataDummy
+import com.b21cap0237.codelabjetpack.viewmodel.ViewModelFactory
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
@@ -38,7 +33,9 @@ class DetailCourseActivity : AppCompatActivity() {
 
         setSupportActionBar(activityDetailCourseBinding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        val viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[DetailCourseViewModel::class.java]
+//        val viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[DetailCourseViewModel::class.java]
+        val factory = ViewModelFactory.getInstance(this)
+        val viewModel = ViewModelProvider(this, factory)[DetailCourseViewModel::class.java]
         val adapter = DetailCourseAdapter()
 
         val extras = intent.extras

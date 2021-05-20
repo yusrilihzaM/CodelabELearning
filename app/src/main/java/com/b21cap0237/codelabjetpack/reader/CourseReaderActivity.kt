@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.b21cap0237.codelabjetpack.R
 import com.b21cap0237.codelabjetpack.reader.content.ModuleContentFragment
 import com.b21cap0237.codelabjetpack.reader.list.ModuleListFragment
+import com.b21cap0237.codelabjetpack.viewmodel.ViewModelFactory
 
 class CourseReaderActivity : AppCompatActivity(), CourseReaderCallback {
     companion object {
@@ -14,7 +15,9 @@ class CourseReaderActivity : AppCompatActivity(), CourseReaderCallback {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_course_reader)
-        val viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[CourseReaderViewModel::class.java]
+//        val viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[CourseReaderViewModel::class.java]
+        val factory = ViewModelFactory.getInstance(this)
+        val viewModel = ViewModelProvider(this, factory)[CourseReaderViewModel::class.java]
         val bundle = intent.extras
         if (bundle != null) {
             val courseId = bundle.getString(EXTRA_COURSE_ID)
@@ -27,7 +30,9 @@ class CourseReaderActivity : AppCompatActivity(), CourseReaderCallback {
 
     override fun moveTo(position: Int, moduleId: String) {
         val fragment = ModuleContentFragment.newInstance()
-        supportFragmentManager.beginTransaction().add(R.id.frame_container, fragment, ModuleContentFragment.TAG)
+        supportFragmentManager.beginTransaction().add(R.id.frame_container, fragment,
+            ModuleContentFragment.TAG
+        )
             .addToBackStack(null)
             .commit()
     }

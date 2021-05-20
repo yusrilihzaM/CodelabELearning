@@ -14,7 +14,7 @@ import com.b21cap0237.codelabjetpack.databinding.FragmentModuleListBinding
 import com.b21cap0237.codelabjetpack.reader.CourseReaderActivity
 import com.b21cap0237.codelabjetpack.reader.CourseReaderCallback
 import com.b21cap0237.codelabjetpack.reader.CourseReaderViewModel
-import com.b21cap0237.codelabjetpack.utils.DataDummy
+import com.b21cap0237.codelabjetpack.viewmodel.ViewModelFactory
 
 
 /**
@@ -42,7 +42,9 @@ class ModuleListFragment : Fragment(), MyAdapterClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(requireActivity(), ViewModelProvider.NewInstanceFactory())[CourseReaderViewModel::class.java]
+//        viewModel = ViewModelProvider(requireActivity(), ViewModelProvider.NewInstanceFactory())[CourseReaderViewModel::class.java]
+        val factory = ViewModelFactory.getInstance(requireActivity())
+        viewModel = ViewModelProvider(requireActivity(), factory)[CourseReaderViewModel::class.java]
         adapter = ModuleListAdapter(this)
 //        populateRecyclerView(DataDummy.generateDummyModules("a14"))
         populateRecyclerView(viewModel.getModules())
